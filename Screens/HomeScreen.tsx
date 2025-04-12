@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet} from 'react-native';
+import { View, StyleSheet} from 'react-native';
+import MapScreen from '../components/MapScreen';
 
 function HomeScreen() {
-  
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
+      <MapScreen />
     </View>
   );
 }
@@ -14,12 +14,5 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: '600',
   },
 });
