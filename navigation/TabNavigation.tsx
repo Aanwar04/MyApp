@@ -18,7 +18,7 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#fff',
@@ -56,7 +56,7 @@ export default function TabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         tabBarActiveTintColor: '#0066cc',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
@@ -64,6 +64,8 @@ export default function TabNavigation() {
           height: 60,
         },
         headerStyle: {
+           height: 60,
+           
           backgroundColor: '#fff',
         },
         headerTintColor: '#0066cc',

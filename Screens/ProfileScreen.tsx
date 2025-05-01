@@ -3,6 +3,8 @@ import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Image } from 'rea
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import Entypo from 'react-native-vector-icons/Entypo';
+
 import Animated, { 
   useAnimatedStyle, 
   withSpring,
@@ -18,8 +20,8 @@ export default function ProfileScreen() {
   const navigation = useNavigation();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'images', title: 'Images' },
-    { key: 'videos', title: 'Videos' },
+    { key: 'images', title: 'Images', icon: <Ionicons name="grid" size={24} color="#0066cc" /> }, // Grid Icon
+    { key: 'videos', title: 'Videos', icon: <Ionicons name="videocam" size={24} color="#0066cc" /> }, // Video Icon
   ]);
 
   const buttonScale = useSharedValue(1);
@@ -53,6 +55,7 @@ export default function ProfileScreen() {
       inactiveColor="#666666"
       pressColor="transparent"
       pressOpacity={1}
+      
     />
   );
 
@@ -80,7 +83,7 @@ export default function ProfileScreen() {
       </View>
       
       <View style={styles.bioContainer}>
-        <Text style={styles.username}>John Doe</Text>
+        <Text style={styles.username}>Anwar </Text>
         <Text style={styles.bio}>Photography enthusiast 📸</Text>
       </View>
 
@@ -100,12 +103,13 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Profile</Text>
+        <Text style={styles.headerTitle}>Anwar</Text>
         <TouchableOpacity 
           style={styles.settingsButton}
           onPress={() => navigation.navigate('Settings')}
         >
-          <Ionicons name="settings-outline" size={24} color="#000" />
+          <Entypo name="dots-three-vertical" size={24} color="#000" />
+
         </TouchableOpacity>
       </View>
       <ProfileHeader />
@@ -191,9 +195,10 @@ const styles = StyleSheet.create({
   editButton: {
     flex: 1,
     backgroundColor: '#fff',
+    
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#dbdbdb',
+    borderColor: 'rgba(86, 86, 86, 0.8)',
     paddingVertical: 7,
     alignItems: 'center',
   },

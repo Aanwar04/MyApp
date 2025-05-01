@@ -52,7 +52,7 @@ export default function ImagesTab() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Images</Text>
+            
             {isLoading && (
                 <View style={styles.loadingOverlay}>
                     <ActivityIndicator size="large" color="#0066cc" />
@@ -105,7 +105,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        padding: 10,
+        padding: 0,
+         marginTop:1,
+        marginHorizontal:1,
     },
     centerContainer: {
         flex: 1,
@@ -118,16 +120,24 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     imageContainer: {
-        margin: 5,
-        padding: 5,
+        margin: 0,
+        padding: 0,
+       
     },
     image: {
-        width: 100,
-        height: 100,
-        borderRadius: 8,
+        width: 130,
+        height: 180,
+        borderRadius: 0,
+        marginTop:1,
+        marginHorizontal:1,
+        
+
     },
     grid: {
-        padding: 5,
+        padding: 0,
+        
+        gap: 0,
+        justifyContent: 'space-between',
     },
     loadingOverlay: {
         position: 'absolute',
@@ -153,8 +163,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     fullImage: {
-        width: '90%',
-        height: '90%',
+        width: '100%',
+        height: '100%',
     },
     closeButton: {
         position: 'absolute',
@@ -162,7 +172,7 @@ const styles = StyleSheet.create({
         right: 20,
         backgroundColor: '#0066cc',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 0,
     },
     closeButtonText: {
         color: 'white',
@@ -175,7 +185,7 @@ const styles = StyleSheet.create({
     retryButton: {
         backgroundColor: '#0066cc',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 0,
     },
     retryText: {
         color: 'white',
