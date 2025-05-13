@@ -9,7 +9,7 @@ import NotificationsScreen from '@/Screens/NotificationsScreen';
 import AddScreen from '@/Screens/AddScreen';
 import EditProfileScreen from '@/Screens/EditProfileScreen';
 import SettingsScreen from '@/Screens/SettingsScreen';
-import { RootTabParamList, ProfileStackParamList } from './types/navigation';
+import { RootTabParamList, ProfileStackParamList } from '@/types/navigation';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -19,7 +19,6 @@ const ProfileStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        headerBackTitleVisible: false,
         headerStyle: {
           backgroundColor: '#fff',
         },
@@ -65,8 +64,7 @@ export default function TabNavigation() {
         },
         headerStyle: {
            height: 60,
-           
-          backgroundColor: '#fff',
+           backgroundColor: '#fff',
         },
         headerTintColor: '#0066cc',
       }}

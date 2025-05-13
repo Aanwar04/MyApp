@@ -120,13 +120,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     imageContainer: {
-        margin: 0,
+        margin: -0.25,
         padding: 0,
        
     },
     image: {
-        width: 130,
-        height: 180,
+        width: 133,
+        height: 190,
         borderRadius: 0,
         marginTop:1,
         marginHorizontal:1,

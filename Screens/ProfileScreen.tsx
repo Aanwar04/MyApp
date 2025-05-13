@@ -1,27 +1,22 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Text, TouchableOpacity, Image } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Animated, { useAnimatedStyle, withSpring, useSharedValue } from 'react-native-reanimated';
 
-import Animated, { 
-  useAnimatedStyle, 
-  withSpring,
-  useSharedValue
-} from 'react-native-reanimated';
 import ImagesTab from '@/components/ImagesTab';
 import VideosTab from '@/components/VideosTab';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
-const initialLayout = { width: Dimensions.get('window').width };
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: 'images', title: 'Images', icon: <Ionicons name="grid" size={24} color="#0066cc" /> }, // Grid Icon
-    { key: 'videos', title: 'Videos', icon: <Ionicons name="videocam" size={24} color="#0066cc" /> }, // Video Icon
+    { key: 'images' },
+    { key: 'videos' },
   ]);
 
   const buttonScale = useSharedValue(1);
@@ -33,36 +28,40 @@ export default function ProfileScreen() {
 
   const onPressIn = useCallback(() => {
     buttonScale.value = withSpring(0.95);
-  }, []);
+  }, [buttonScale]);
 
   const onPressOut = useCallback(() => {
     buttonScale.value = withSpring(1);
-  }, []);
+  }, [buttonScale]);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: buttonScale.value }],
-    };
-  });
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: buttonScale.value }],
+  }));
 
-  const renderTabBar = (props: any) => (
-    <TabBar
-      {...props}
-      indicatorStyle={styles.indicator}
-      style={styles.tabBar}
-      labelStyle={styles.label}
-      activeColor="#0066cc"
-      inactiveColor="#666666"
-      pressColor="transparent"
-      pressOpacity={1}
-      
-    />
+  const CustomTabBar = ({ navigationState, setIndex }) => (
+    <View style={styles.tabBarContainer}>
+      {navigationState.routes.map((route, i) => {
+        const isFocused = navigationState.index === i;
+        const color = isFocused ? '#0066cc' : '#666666';
+
+        return (
+          <TouchableOpacity
+            key={i}
+            style={styles.tabItem}
+            onPress={() => setIndex(i)}
+          >
+            <Ionicons name={i === 0 ? 'grid' : 'videocam'} size={24} color={color} />
+            {isFocused && <View style={styles.activeIndicator} />}
+          </TouchableOpacity>
+        );
+      })}
+    </View>
   );
 
   const ProfileHeader = () => (
     <View style={styles.headerContainer}>
       <View style={styles.profileInfoContainer}>
-        <Image 
+        <Image
           source={{ uri: 'https://picsum.photos/200' }}
           style={styles.profileImage}
         />
@@ -81,14 +80,14 @@ export default function ProfileScreen() {
           </View>
         </View>
       </View>
-      
+
       <View style={styles.bioContainer}>
-        <Text style={styles.username}>Anwar </Text>
+        <Text style={styles.username}>Anwar</Text>
         <Text style={styles.bio}>Photography enthusiast 📸</Text>
       </View>
 
       <View style={styles.buttonContainer}>
-        <AnimatedTouchableOpacity 
+        <AnimatedTouchableOpacity
           style={[styles.editButton, animatedStyle]}
           onPress={() => navigation.navigate('EditProfile')}
           onPressIn={onPressIn}
@@ -104,12 +103,11 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Anwar</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.settingsButton}
           onPress={() => navigation.navigate('Settings')}
         >
           <Entypo name="dots-three-vertical" size={24} color="#000" />
-
         </TouchableOpacity>
       </View>
       <ProfileHeader />
@@ -117,10 +115,10 @@ export default function ProfileScreen() {
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        renderTabBar={renderTabBar}
+        renderTabBar={() => (
+          <CustomTabBar navigationState={{ index, routes }} setIndex={setIndex} />
+        )}
         swipeEnabled={true}
-        style={styles.tabView}
       />
     </View>
   );
@@ -130,6 +128,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  tabBarContainer: {
+    flexDirection: 'row',
+    height: 48,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+    backgroundColor: '#fff',
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  activeIndicator: {
+    position: 'absolute',
+    bottom: 0,
+    height: 2,
+    width: '70%',
+    backgroundColor: '#0066cc',
   },
   header: {
     flexDirection: 'row',
@@ -195,7 +213,6 @@ const styles = StyleSheet.create({
   editButton: {
     flex: 1,
     backgroundColor: '#fff',
-    
     borderRadius: 4,
     borderWidth: 1,
     borderColor: 'rgba(86, 86, 86, 0.8)',
@@ -206,24 +223,5 @@ const styles = StyleSheet.create({
     color: '#262626',
     fontWeight: '600',
     fontSize: 14,
-  },
-  tabBar: {
-    backgroundColor: '#fff',
-    elevation: 0,
-    shadowOpacity: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  indicator: {
-    backgroundColor: '#0066cc',
-    height: 1,
-  },
-  label: {
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    fontSize: 12,
-  },
-  tabView: {
-    backgroundColor: '#fff',
   },
 });

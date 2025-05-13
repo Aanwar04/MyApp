@@ -1,16 +1,16 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import TabNavigation from '@/navigation/TabNavigation';
-import 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native';
+import { AuthProvider } from '../context/AuthContext';
+import AppNavigator from '../navigation/AppNavigator';
 
 export default function App() {
   return (
-    <>
-    <SafeAreaView style={{ flex: 1, paddingTop: 0 }}>
-      <StatusBar style="dark"  />
-      <TabNavigation />
+    <AuthProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar style="dark" />
+        <AppNavigator />
       </SafeAreaView>
-    </>
+    </AuthProvider>
   );
 }
