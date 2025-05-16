@@ -1,18 +1,19 @@
-import { View, StyleSheet} from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import MapScreen from '../components/MapScreen';
 
-function HomeScreen() {
+const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <MapScreen />
     </View>
   );
-}
-
-export default HomeScreen;
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
+  }
 });
+
+export default HomeScreen;

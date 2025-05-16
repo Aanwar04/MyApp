@@ -77,6 +77,11 @@ export default function UserMap() {
 
   return (
     <View style={styles.container}>
+      <View >
+        <View style={styles.home}>
+        <Text style={styles.title}>Home</Text>
+        </View>
+      
       {location ? (
         <>
           <MapView
@@ -117,6 +122,7 @@ export default function UserMap() {
           </TouchableOpacity>
         </View>
       )}
+      </View>
     </View>
   );
 }
@@ -124,10 +130,11 @@ export default function UserMap() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
   },
   map: {
-    width: width,
-    height: height * 0.9,
+    width: '100%',
+    height: '100%', 
   },
   loaderContainer: {
     flex: 1,
@@ -175,5 +182,28 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  },
+  home:{
+      height: '7%',
+  width: '100%',
+  position: 'absolute' as const,
+  top: 0,
+  zIndex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#fff', // Optional: clean white background
+  borderBottomWidth: 1,
+  borderBottomColor: '#eee',
+  elevation: 3, // for Android shadow
+  shadowColor: '#000', // for iOS shadow
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 2,
+
+  },
+    title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#0066cc',
   },
 });
